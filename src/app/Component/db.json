@@ -1,0 +1,40 @@
+{
+  "user": [
+    {
+      "id": "5228",
+      "department": "Hr",
+      "name": "Syed Osman",
+      "mobile": 76457654,
+      "email": "a@dh",
+      "doj": "2024-02-01",
+      "gender": "male",
+      "city": "kolkata",
+      "address": "sector-5",
+      "salary": 764635353
+    },
+    {
+      "department": "Sales",
+      "name": "Sneako",
+      "mobile": 74754,
+      "email": "a@dnvdv",
+      "doj": "2024-09-11",
+      "gender": "female",
+      "city": "London",
+      "address": "sector 65",
+      "salary": 7654754,
+      "id": "65ae"
+    },
+    {
+      "id": "93a3",
+      "department": "Semiconductor",
+      "name": "TSMC",
+      "mobile": 765754,
+      "email": "ts@hhdvg",
+      "doj": "2024-09-04",
+      "gender": "male",
+      "city": "Taiwan",
+      "address": "taiwan 1",
+      "salary": 675465
+    }
+  ]
+}
