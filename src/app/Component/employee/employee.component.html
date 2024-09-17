@@ -70,22 +70,54 @@
       <div class="col-12 flex justify-content-between">
         <div class="col-6">
           <input type="text" pInputText placeholder="Department" id="department" formControlName="department" />
+          <small *ngIf="department.invalid &&(department.dirty || department.touched)"
+          class="block p-error"
+          >
+              <div *ngIf="department.errors?.['required']">
+                Department is required
+              </div>
+          </small>
+
         </div>
         <div class="col-6">
           <input type="text" formControlName="name" pInputText placeholder="Name" />
+          <small *ngIf="name.invalid &&(name.dirty || name.touched)"
+          class="block p-error"
+          >
+          <div *ngIf="name.errors?.['required']">*Name is required</div>
+          <div *ngIf="name.errors?.['pattern']">*Correct name  required</div>
+          </small>
         </div>
       </div>
       <div class="flex col-12 justify-content-between">
         <div class="col-6">
-          <p-inputNumber formControlName="mobile" placeholder="Mobile"></p-inputNumber>
+          <input  pInputText   formControlName="mobile" placeholder="Mobile"/>
+          <small *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="block p-error">
+            <div *ngIf="mobile.errors?.['required']">*Number required</div>
+            <div *ngIf="mobile.errors?.['minlength']">*Minimum ten digits required</div>
+            <div *ngIf="mobile.errors?.['maxlength']">*Maximum twelve digits allowed</div>
+          </small>
         </div>
         <div class="col-6">
-          <input type="text" formControlName="email" pInputText placeholder="Email" />
+          <input  formControlName="email" pInputText placeholder="Email" />
+          <small *ngIf="email.invalid && (email.dirty || email.touched)" class="block p-error">
+            <div *ngIf="email.errors?.['required']">*Email is required</div>
+            <div *ngIf="email.errors?.['email']">*Email should be valid</div>
+          </small>
         </div>
       </div>
       <div class="flex col-12">
         <div class="col-6">
           <input formControlName="doj" pInputText type="date" dateFormat="dd.mm.yy" />
+          <small *ngIf="doj.invalid && (doj.dirty ||doj.touched)" class="block p-error">
+            <div *ngIf="doj.errors?.['required']">*Date is required</div>
+          </small>
+          <!-- <p-floatLabel>
+            <p-calendar 
+            formControlName="doj"
+            dateFormat="dd.mm.yy" />
+            <label for="birth_date">join Date</label>
+        </p-floatLabel> -->
         </div>
         <div class="col-6 flex">
           <div class="col-6 form-check-inline">
@@ -101,6 +133,9 @@
       <div class="col-12 flex">
         <div class="col-6">
           <input type="text" placeholder="City" pInputText formControlName="city" />
+          <small *ngIf="city.invalid && (city.dirty || city.touched)" class="block p-error" >
+            <div *ngIf="city.errors?.['required']">*City name is required</div>
+          </small>
         </div>
         <div class="col-6">
           <p-inputNumber placeholder="Salary" formControlName="salary"></p-inputNumber>
@@ -110,7 +145,13 @@
         <p-floatLabel>
           <textarea rows="5" cols="30" id="float-input" formControlName="address" pInputTextarea class="w-100"></textarea>
           <label for="float-input">Enter address</label>
+         
+
+      
         </p-floatLabel>
+        <small *ngIf="address.invalid && (address.dirty || address.touched)" class="block p-error">
+          <div *ngIf="address.errors?.['required']">*address is required</div>
+          </small>
       </div>
       <div class="col-12">
         <button pButton label="{{ editMode ? 'Update' : 'Save' }}" pRipple type="submit" class="btn btn-primary w-100"></button>

@@ -7,7 +7,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
-import { CalendarModule } from 'primeng/calendar';
+
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -20,6 +20,8 @@ import { provideAnimationsAsync } from "@angular/platform-browser/animations/asy
 import { RippleModule } from 'primeng/ripple';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-employee',
@@ -41,6 +43,8 @@ import { ConfirmationService } from 'primeng/api';
     ToastModule,
     RippleModule,
     ConfirmDialogModule,
+    CommonModule,
+    CalendarModule
   ],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.css'
@@ -51,7 +55,7 @@ export class EmployeeComponent {
   visible: boolean = false;
   editMode: boolean = false;
   selectedUserId: number | null = null;
-  
+  // date: Date | undefined;
   constructor(
     private userService: EmpserviceService,
     private messageService: MessageService,
@@ -61,17 +65,55 @@ export class EmployeeComponent {
     this.userForm = this.fb.group({
   
       department: ['', Validators.required],
-      name: ['', Validators.required],
-      mobile: [null, Validators.required],
+      name: ['', [Validators.required,Validators.pattern(/^[a-zA-Z]+ [a-zA-Z]+$/)]],
+      mobile: [null, [Validators.required,Validators.minLength(10),Validators.maxLength(12)]],
       email: ['', [Validators.required, Validators.email]],
-      doj: [''],
+      doj: [new Date(),Validators.required],
       gender: [''],
-      city: [''],
-      address: [''],
+      city: ['',Validators.required],
+      address: ['',Validators.required],
       salary: [null]
     });
   }
   
+  get department(){
+    return this.userForm.controls['department']
+  }
+  get name()
+  {
+    return this.userForm.controls['name']
+  }
+  get mobile()
+  {
+    return this.userForm.controls['mobile']
+  }
+
+  get email()
+  {
+    return this.userForm.controls['email']
+  }
+  get gender()
+  {
+    return this.userForm.controls['gender']
+  }
+  get city()
+  {
+    return this.userForm.controls['city']
+  }
+  get doj()
+  {
+    return this.userForm.controls['doj']
+  }
+  get address()
+  {
+    return this.userForm.controls['address']
+  }
+  get salary()
+  {
+    return this.userForm.controls['salary']
+  }
+
+
   ngOnInit(): void {
     this.getUserList();
   }
@@ -99,12 +141,13 @@ export class EmployeeComponent {
   onSubmit() {
     if (this.editMode) {
       this.updateUser();
-    } else {
+    } else  {
       this.addUser();
     }
   }
   
   addUser() {
+    
     this.userService.addUser(this.userForm.value).subscribe(
       () => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User Added Successfully' });
